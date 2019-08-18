@@ -1,8 +1,8 @@
 {
-  "name": "node12-template-action",
+  "name": "nbgv-action",
   "version": "0.0.0",
   "private": true,
-  "description": "Node 12 template action",
+  "description": "GitHub Action for Nerdbank.GitVersioning",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -10,14 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/node12-template.git"
+    "url": "git+https://github.com/ctaggart/nbgv.git"
   },
   "keywords": [
     "actions",
     "node",
-    "setup"
+    "versioning",
+    "git",
+    "version"
   ],
-  "author": "GitHub",
+  "author": "ctaggart",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.0.0",
@@ -29,7 +31,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.4",
+    "@types/node": "^12.7.2",
     "@types/semver": "^6.0.0",
     "jest": "^24.8.0",
     "jest-circus": "^24.7.1",
