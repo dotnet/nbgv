@@ -85,10 +85,12 @@ async function run() {
     // add .dotnet/tools to the path
     core.addPath(path.join(os.homedir(), '.dotnet', 'tools'));
     // run nbgv and save to nbgv.json
+    const jsonWs = fs.createWriteStream('nbgv.json')
     await exec.exec('nbgv', ['get-version', '-f', 'json'], {
       silent: true,
-      outStream: fs.createWriteStream('nbgv.json')
+      outStream: jsonWs
     });
+    jsonWs.end()
 
     // read the nbjv.json and export all cloud variables
     const json: Nbgv = JSON.parse(fs.readFileSync('nbgv.json', 'utf8'));
