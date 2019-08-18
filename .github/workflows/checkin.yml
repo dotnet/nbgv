@@ -7,19 +7,19 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: "npm ci"
-      run: npm ci
+    - name: yarn
+      run: yarn
 
-    - name: "npm run build"
-      run: npm run build
+    - name: "yarn run build"
+      run: yarn run build
 
-    # - name: "npm run test"
-    #   run: npm run test
+    # - name: "yarn run test"
+    #   run: yarn run test
 
     - name: "check for uncommitted changes"
       # Ensure no changes, but ignore node_modules dir since dev/fresh ci deps installed.
       run: |
         git diff --exit-code --stat -- . ':!node_modules' \
-        || (echo "##[error] found changed files after build. please 'npm run build && npm run format'" \
+        || (echo "##[error] found changed files after build. please 'yarn run build'" \
                  "and check in all changes" \
             && exit 1)
