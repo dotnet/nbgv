@@ -17,6 +17,7 @@ async function run() {
 
     let json = fs.createWriteStream('nbgv.json');
     await exec.exec('nbgv', ['get-version', '-f', 'json'], {
+      silent: true,
       outStream: json
     });
 
