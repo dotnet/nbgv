@@ -1,6 +1,6 @@
-name: 'Node 12 Template Action'
-description: 'Get started with Node actions'
-author: 'GitHub'
+name: 'GitVersioning'
+description: 'runs nbgv and saves the output to nbgv.json'
+author: 'ctaggart'
 inputs: 
   myInput:
     description: 'Input to use'
