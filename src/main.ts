@@ -91,7 +91,7 @@ async function run() {
     // run nbgv and save to nbgv.json
     const jsonWs = fs.createWriteStream('nbgv.json');
     await exec.exec('nbgv', ['get-version', '-f', 'json'], {
-      silent: true,
+      silent: false,
       outStream: jsonWs
     });
     await endWriteStream(jsonWs);
