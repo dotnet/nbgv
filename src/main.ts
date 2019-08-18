@@ -107,6 +107,12 @@ async function run() {
     });
     core.warning(jsonStr);
 
+    await new Promise((resolve, reject) => {
+      fs.writeFile('nbgv.json', jsonStr, err => {
+        if(err) reject(err);
+        resolve();
+      });
+    });
     // await endWriteStream(jsonWs);
 
     // read the nbjv.json and export all cloud variables
