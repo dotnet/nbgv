@@ -1,8 +1,13 @@
 # GitHub Action for Nerdbank.GitVersioning
 
-This action install and runs the CLI for [https://github.com/AArnott/Nerdbank.GitVersioning](Nerdbank.GitVersioning). It does the equivelant of:
-- dotnet tool install -g nbgv
-- nbgv get-version -f json > nbgv.json
+This action installs and runs the CLI for [Nerdbank.GitVersioning](https://github.com/AArnott/Nerdbank.GitVersioning).
+It does the equivalent of:
+
+```bash
+dotnet tool install -g nbgv
+nbgv get-version -f json > nbgv.json
+```
+
 It also sets all the cloud environment variables.
 
 ## Example Workflow
@@ -15,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: ctaggart/nbgv@master
+    - uses: aarnott/nbgv@master
     - run: echo "NBGV_SemVer2 $NBGV_SemVer2"
 ```
 
