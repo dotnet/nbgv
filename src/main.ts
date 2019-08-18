@@ -78,6 +78,10 @@ export interface Nbgv {
   SemVer1NumericIdentifierPadding: number;
 }
 
+const endWriteStream = (stream: fs.WriteStream) => {
+  return new Promise(resolve => stream.end(resolve))
+}
+
 async function run() {
   try {
     // install nbgv
@@ -90,7 +94,7 @@ async function run() {
       silent: true,
       outStream: jsonWs
     });
-    jsonWs.end();
+    await endWriteStream(jsonWs);
 
     // read the nbjv.json and export all cloud variables
     // const json: Nbgv = JSON.parse(fs.readFileSync('nbgv.json', 'utf8'));
