@@ -6,9 +6,8 @@ It does the equivalent of:
 ```bash
 dotnet tool install -g nbgv
 nbgv get-version -f json > nbgv.json
+nbgv cloud --all-vars
 ```
-
-It also sets all the cloud environment variables.
 
 ## Example Workflow
 
