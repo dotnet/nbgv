@@ -1,9 +1,22 @@
-# JavaScript Action Template
+# GitHub Action for Nerdbank.GitVersioning
 
-This template offers an easy way to get started writing a javascript action with TypeScript compile time support, unit testing with Jest and using the GitHub Actions Toolkit.
+This action install and runs the CLI for [https://github.com/AArnott/Nerdbank.GitVersioning](Nerdbank.GitVersioning). It does the equivelant of:
+- dotnet tool install -g nbgv
+- nbgv get-version -f json > nbgv.json
+It also sets all the cloud environment variables.
 
-## Getting Started
+## Example Workflow
 
-See the walkthrough located [here](https://github.com/actions/toolkit/blob/master/docs/javascript-action.md).
+``` yaml
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ctaggart/nbgv@master
+    - run: echo "NBGV_SemVer2 $NBGV_SemVer2"
+```
 
-In addition to walking your through how to create an action, it also provides strategies for versioning, releasing and referencing your actions.
+The action runs in about 13 seconds.

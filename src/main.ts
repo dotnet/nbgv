@@ -78,10 +78,6 @@ export interface Nbgv {
   SemVer1NumericIdentifierPadding: number;
 }
 
-const endWriteStream = (stream: fs.WriteStream) => {
-  return new Promise(resolve => stream.end(resolve))
-}
-
 async function run() {
   try {
     // install nbgv
@@ -89,14 +85,7 @@ async function run() {
     // add .dotnet/tools to the path
     core.addPath(path.join(os.homedir(), '.dotnet', 'tools'));
 
-    // run nbgv and save to nbgv.json
-    // const jsonWs = fs.createWriteStream('nbgv.json');
-    // await exec.exec('nbgv', ['get-version', '-f', 'json'], {
-    //   silent: false,
-    //   outStream: jsonWs
-    // });
-
-    // const jsonWs = fs.createWriteStream('nbgv.json');
+    // run nbgv
     let jsonStr = '';
     await exec.exec('nbgv', ['get-version', '-f', 'json'], {
       listeners: {
@@ -105,18 +94,16 @@ async function run() {
         }
       }
     });
-    core.warning(jsonStr);
 
+    // write nbgv.json
     await new Promise((resolve, reject) => {
       fs.writeFile('nbgv.json', jsonStr, err => {
         if(err) reject(err);
         resolve();
       });
     });
-    // await endWriteStream(jsonWs);
 
-    // read the nbjv.json and export all cloud variables
-    // const json: Nbgv = JSON.parse(fs.readFileSync('nbgv.json', 'utf8'));
+    // parse json and export all cloud variables
     const json: Nbgv = JSON.parse(jsonStr);
     core.exportVariable('NBGV_CloudBuildNumber', json.CloudBuildAllVars.NBGV_CloudBuildNumber);
     core.exportVariable('NBGV_VersionFileFound', json.CloudBuildAllVars.NBGV_VersionFileFound);
@@ -146,8 +133,6 @@ async function run() {
     core.exportVariable('NBGV_SemVer1', json.CloudBuildAllVars.NBGV_SemVer1);
     core.exportVariable('NBGV_SemVer2', json.CloudBuildAllVars.NBGV_SemVer2);
     core.exportVariable('NBGV_SemVer1NumericIdentifierPadding', json.CloudBuildAllVars.NBGV_SemVer1NumericIdentifierPadding);
-
-    // core.exportVariable('NBGV_SemVer2', 'testVars');
 
   } catch (error) {
     core.setFailed(error.message);

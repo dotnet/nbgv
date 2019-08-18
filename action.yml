@@ -1,10 +1,6 @@
-name: 'GitVersioning'
-description: 'runs nbgv and saves the output to nbgv.json'
+name: 'GitHub Action for Nerdbank.GitVersioning'
+description: 'creates deterministic versions using git'
 author: 'ctaggart'
-inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
 runs:
   using: 'node12'
   main: 'lib/main.js'
