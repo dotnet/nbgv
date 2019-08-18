@@ -81,7 +81,11 @@ export interface Nbgv {
 async function run() {
   try {
     // install nbgv
-    await exec.exec('dotnet', ['tool', 'install', '-g', 'nbgv']);
+    let exitCode = await exec.exec('dotnet', ['tool', 'install', '-g', 'nbgv'], { ignoreReturnCode: true });
+    if (exitCode > 1) {
+      throw new Error("dotnet tool install failed.");
+    }
+
     // add .dotnet/tools to the path
     core.addPath(path.join(os.homedir(), '.dotnet', 'tools'));
 
