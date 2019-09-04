@@ -1,6 +1,9 @@
-name: 'GitHub Action for Nerdbank.GitVersioning'
-description: 'creates deterministic versions using git'
-author: 'ctaggart'
+name: GitHub Action for Nerdbank.GitVersioning
+description: creates deterministic versions using git
+author: aarnott
+branding:
+  icon: git-merge
+  color: yellow
 runs:
-  using: 'node12'
-  main: 'lib/main.js'
+  using: node12
+  main: lib/main.js
