@@ -3,6 +3,9 @@
 ###############################################################################
 * text=auto
 
+# Do not normalize line endings for the checked in packages we never touch.
+node_modules/** -text
+
 # Ensure bash shell scripts use LF line endings
 *.sh eol=lf
 
