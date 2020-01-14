@@ -1,7 +1,10 @@
 name: CI/PR
 on:
-- pull_request
-- push
+  pull_request:
+  push:
+    branches:
+      - master
+      - validate/*
 
 jobs:
   check_pr:
