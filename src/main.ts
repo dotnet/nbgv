@@ -25,14 +25,6 @@ async function run() {
       }
     });
 
-    // write nbgv.json
-    await new Promise((resolve, reject) => {
-      fs.writeFile('nbgv.json', jsonStr, err => {
-        if(err) reject(err);
-        resolve();
-      });
-    });
-
     // parse json and export all cloud variables
     const json = JSON.parse(jsonStr);
     for (const key in json.CloudBuildAllVars) {
