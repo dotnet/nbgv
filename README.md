@@ -24,3 +24,10 @@ jobs:
 ```
 
 The action runs in about 13 seconds.
+
+Note that if using `actions/checkout@v2` (**v2**) you'll need to add a step before running this action:
+
+```yml
+    - name: Deep clone
+      run: git fetch --prune --unshallow origin HEAD
+```
