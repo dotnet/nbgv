@@ -1,6 +1,6 @@
 # GitHub Action for Nerdbank.GitVersioning
 
-![GitHub Actions status](https://github.com/aarnott/nbgv/workflows/CI/PR/badge.svg)
+[![GitHub Actions status](https://github.com/aarnott/nbgv/workflows/CI/PR/badge.svg)](https://github.com/AArnott/nbgv/actions)
 
 This action installs and runs the CLI for [Nerdbank.GitVersioning](https://github.com/AArnott/Nerdbank.GitVersioning).
 It does the equivalent of:
