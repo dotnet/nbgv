@@ -1,9 +1,14 @@
-name: GitHub Action for Nerdbank.GitVersioning
-description: creates deterministic versions using git
+name: Nerdbank.GitVersioning
+description: Creates deterministic versions using git
 author: aarnott
 branding:
   icon: git-merge
   color: yellow
+inputs:
+  path:
+    description: The path to the directory for which the version should be determined. This should be at or below the directory containing the version.json file. Default is repo root directory.
+    required: false
+    default: '.'
 runs:
   using: node12
   main: lib/main.js

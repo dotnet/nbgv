@@ -27,6 +27,7 @@
     "@actions/github": "^1.0.0",
     "@actions/io": "^1.0.0",
     "@actions/tool-cache": "^1.0.0",
+    "os": "^0.1.1",
     "semver": "^7.1.1"
   },
   "devDependencies": {
