@@ -7,7 +7,7 @@ on:
       - validate/*
 
 jobs:
-  check_pr:
+  check_diff:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -28,3 +28,14 @@ jobs:
         || (echo "##[error] found changed files after build. please 'yarn run build'" \
                  "and check in all changes" \
             && exit 1)
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: nbgv
+      uses: ./
+      with:
+        path: src
+    - name: Print env vars
+      run: gci env:NBGV_*
+      shell: pwsh

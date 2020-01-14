@@ -1,5 +1,5 @@
-name: GitHub Action for Nerdbank.GitVersioning
-description: creates deterministic versions using git
+name: Nerdbank.GitVersioning
+description: Creates deterministic versions using git
 author: aarnott
 branding:
   icon: git-merge
