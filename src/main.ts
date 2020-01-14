@@ -1,6 +1,5 @@
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
-import * as fs from 'fs';
 import * as os from 'os'
 import * as path from 'path'
 
@@ -17,7 +16,13 @@ async function run() {
 
     // run nbgv
     let jsonStr = '';
-    await exec.exec('nbgv', ['get-version', '-f', 'json'], {
+    let args = ['get-version', '-f', 'json'];
+    const dir_path = core.getInput('path');
+    if (dir_path) {
+      args.push('-p', dir_path);
+    }
+
+    await exec.exec('nbgv', args, {
       listeners: {
         stdout: (data) => {
           jsonStr += data.toString();
