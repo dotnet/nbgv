@@ -1,5 +1,7 @@
-name: "PR Checks"
-on: [pull_request, push]
+name: CI/PR
+on:
+- pull_request
+- push
 
 jobs:
   check_pr:
