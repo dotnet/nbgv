@@ -10,23 +10,22 @@ jobs:
   check_diff:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: yarn
       run: yarn
 
-    - name: "yarn run build"
+    - name: yarn run build
       run: yarn run build
 
-    # - name: "yarn run test"
-    #   run: yarn run test
-
-    - name: "check for uncommitted changes"
-      # Ensure no changes, but ignore node_modules dir since dev/fresh ci deps installed.
+    - name: check for uncommitted changes
+      # Ensure no changes.
       run: |
-        git diff --exit-code --stat -- . ':!node_modules' \
+        git add -u . # compare after applying git EOL normalization
+        git diff --cached --exit-code --stat \
         || (echo "##[error] found changed files after build. please 'yarn run build'" \
                  "and check in all changes" \
+            && git diff --cached \
             && exit 1)
   test:
     runs-on: ubuntu-latest
