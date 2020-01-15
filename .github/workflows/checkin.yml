@@ -22,9 +22,9 @@ jobs:
     #   run: yarn run test
 
     - name: "check for uncommitted changes"
-      # Ensure no changes, but ignore node_modules dir since dev/fresh ci deps installed.
+      # Ensure no changes.
       run: |
-        git diff --exit-code --stat -- . ':!node_modules' \
+        git diff --exit-code --stat -- . \
         || (echo "##[error] found changed files after build. please 'yarn run build'" \
                  "and check in all changes" \
             && exit 1)
