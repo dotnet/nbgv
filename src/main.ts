@@ -6,7 +6,13 @@ import * as path from 'path'
 async function run() {
   try {
     // install nbgv
-    let exitCode = await exec.exec('dotnet', ['tool', 'install', '-g', 'nbgv'], { ignoreReturnCode: true });
+    let installArgs = ['tool', 'install', '-g', 'nbgv'];
+    const toolVersion = core.getInput('toolVersion');
+    if (toolVersion) {
+      installArgs.push('--version', toolVersion);
+    }
+
+    let exitCode = await exec.exec('dotnet', installArgs, { ignoreReturnCode: true });
     if (exitCode > 1) {
       throw new Error("dotnet tool install failed.");
     }
@@ -16,28 +22,19 @@ async function run() {
 
     // run nbgv
     let jsonStr = '';
-    let args = ['get-version', '-f', 'json'];
+    let args = ['cloud'];
     const dir_path = core.getInput('path');
     if (dir_path) {
       args.push('-p', dir_path);
     }
-
-    await exec.exec('nbgv', args, {
-      listeners: {
-        stdout: (data) => {
-          jsonStr += data.toString();
-        }
-      }
-    });
-
-    // parse json and export all cloud variables
-    const json = JSON.parse(jsonStr);
-    for (const key in json.CloudBuildAllVars) {
-      if (json.CloudBuildAllVars.hasOwnProperty(key)) {
-        const element = json.CloudBuildAllVars[key];
-        core.exportVariable(key, element);
-      }
+    if (core.getInput('commonVars') === 'true') {
+      args.push('-c');
     }
+    if (core.getInput('allVars') === 'true') {
+      args.push('-a');
+    }
+
+    await exec.exec('nbgv', args);
   } catch (error) {
     core.setFailed(error.message);
   }

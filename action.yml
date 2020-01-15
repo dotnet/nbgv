@@ -9,6 +9,17 @@ inputs:
     description: The path to the directory for which the version should be determined. This should be at or below the directory containing the version.json file. Default is repo root directory.
     required: false
     default: '.'
+  allVars:
+    description: Defines ALL version variables as cloud build variables, with a "NBGV_" prefix.
+    required: false
+    default: 'true'
+  commonVars:
+    description: Defines a few common version variables as cloud build variables, with a "Git" prefix (e.g. GitBuildVersion, GitBuildVersionSimple, GitAssemblyInformationalVersion).
+    required: false
+    default: 'true'
+  toolVersion:
+    description: The version of the nbgv dotnet CLI tool to install and use. If not specified, the default is the latest stable version.
+    required: false
 runs:
   using: node12
   main: dist/index.js
