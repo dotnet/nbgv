@@ -23,9 +23,6 @@ jobs:
     - name: "yarn run build"
       run: yarn run build
 
-    # - name: "yarn run test"
-    #   run: yarn run test
-
     - name: "check for uncommitted changes"
       # Ensure no changes.
       run: |
