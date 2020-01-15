@@ -51,9 +51,10 @@ The action runs in about 13 seconds.
 
 Git history based versioning tools rely on history being included in the clone.
 `actions/checkout@v1` does this by default.
-But if you're using `actions/checkout@v2` you'll need to add a step **before** running this action:
+But if you're using `actions/checkout@v2` you'll need to specify deep clone:
 
 ```yml
-- name: Deep clone
-  run: git fetch --prune --unshallow origin HEAD
+- uses: actions/checkout@v2
+  with:
+    fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
 ```
