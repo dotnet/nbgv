@@ -32,10 +32,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: nbgv
+    - name: nbgv -c -p src
       uses: ./
       with:
         path: src
+        allVars: false
     - name: Print env vars
-      run: gci env:NBGV_*
+      run: gci env:NBGV_*,env:Git*
+      shell: pwsh
+    - name: nbgv -a -p src
+      uses: ./
+      with:
+        path: src
+        commonVars: false
+    - name: Print env vars
+      run: gci env:NBGV_*,env:Git*
       shell: pwsh

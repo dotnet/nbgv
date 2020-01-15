@@ -7,17 +7,32 @@ It does the equivalent of:
 
 ```bash
 dotnet tool install -g nbgv
-nbgv get-version -f json > nbgv.json
-nbgv cloud --all-vars
+nbgv cloud --all-vars --common-vars
 ```
 
 This sets many environment variables to the various forms of the version for your repo or project.
 
 ## Inputs
 
-### Path
+### path
 
 **Optional** The path to the directory for which the version should be determined. This should be at or below the directory containing the version.json file. Default is repo root directory.
+
+### commonVars
+
+**Optional** Defines a few common version variables as cloud build variables, with a "Git" prefix (e.g. GitBuildVersion, GitBuildVersionSimple, GitAssemblyInformationalVersion).
+
+Adds the `--common-vars` switch to the `nbgv cloud` command.
+
+Default value is `true`.
+
+### allVars
+
+**Optional** Defines ALL version variables as cloud build variables, with a "NBGV_" prefix.
+
+Adds the `--all-vars` switch to the `nbgv cloud` command.
+
+Default value is `true`.
 
 ## Example usage
 
