@@ -34,6 +34,10 @@ Adds the `--all-vars` switch to the `nbgv cloud` command.
 
 Default value is `true`.
 
+### toolVersion
+
+**Optional** The version of the nbgv dotnet CLI tool to install and use. If not specified, the default is the latest stable version.
+
 ## Example usage
 
 ``` yaml

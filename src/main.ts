@@ -6,7 +6,13 @@ import * as path from 'path'
 async function run() {
   try {
     // install nbgv
-    let exitCode = await exec.exec('dotnet', ['tool', 'install', '-g', 'nbgv'], { ignoreReturnCode: true });
+    let installArgs = ['tool', 'install', '-g', 'nbgv'];
+    const toolVersion = core.getInput('toolVersion');
+    if (toolVersion) {
+      installArgs.push('--version', toolVersion);
+    }
+
+    let exitCode = await exec.exec('dotnet', installArgs, { ignoreReturnCode: true });
     if (exitCode > 1) {
       throw new Error("dotnet tool install failed.");
     }

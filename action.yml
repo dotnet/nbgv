@@ -17,6 +17,9 @@ inputs:
     description: Defines a few common version variables as cloud build variables, with a "Git" prefix (e.g. GitBuildVersion, GitBuildVersionSimple, GitAssemblyInformationalVersion).
     required: false
     default: 'true'
+  toolVersion:
+    description: The version of the nbgv dotnet CLI tool to install and use. If not specified, the default is the latest stable version.
+    required: false
 runs:
   using: node12
   main: lib/main.js
