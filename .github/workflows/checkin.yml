@@ -24,9 +24,11 @@ jobs:
     - name: "check for uncommitted changes"
       # Ensure no changes.
       run: |
-        git diff --exit-code --stat -- . \
+        git add -u . # compare after applying git EOL normalization
+        git diff --cached --exit-code --stat \
         || (echo "##[error] found changed files after build. please 'yarn run build'" \
                  "and check in all changes" \
+            && git diff --cached \
             && exit 1)
   test:
     runs-on: ubuntu-latest
