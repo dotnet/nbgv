@@ -9,17 +9,71 @@ inputs:
     description: The path to the directory for which the version should be determined. This should be at or below the directory containing the version.json file. Default is repo root directory.
     required: false
     default: '.'
-  allVars:
-    description: Defines ALL version variables as cloud build variables, with a "NBGV_" prefix.
+  setAllVars:
+    description: Defines ALL version variables as environment variables, with a "NBGV_" prefix.
     required: false
-    default: 'true'
-  commonVars:
-    description: Defines a few common version variables as cloud build variables, with a "Git" prefix (e.g. GitBuildVersion, GitBuildVersionSimple, GitAssemblyInformationalVersion).
+    default: false
+  setCommonVars:
+    description: Defines a few common version variables as environment variables, with a "Git" prefix (e.g. GitBuildVersion, GitBuildVersionSimple, GitAssemblyInformationalVersion).
     required: false
-    default: 'true'
+    default: false
   toolVersion:
     description: The version of the nbgv dotnet CLI tool to install and use. If not specified, the default is the latest stable version.
     required: false
+outputs:
+  CloudBuildNumber:
+    description: The cloud build number
+  VersionFileFound:
+    description: A boolean value indicating whether a version.json file was found.
+  AssemblyVersion:
+    description: The version to be used as the .NET assembly version.
+  AssemblyFileVersion:
+    description: The version to be used as the .NET assembly file version.
+  AssemblyInformationalVersion:
+    description: The version to be used as the .NET assembly informational version.
+  PublicRelease:
+    description: A boolean value indicating whether this build is recognized as building from a public release branch.
+  PrereleaseVersion:
+    description: The prerelease/unstable suffix to the version, including the hyphen.
+  PrereleaseVersionNoLeadingHyphen:
+    description: The prerelease/unstable suffix to the version, without the leading hyphen.
+  SimpleVersion:
+    description: The first 3 integers of the version.
+  BuildNumber:
+    description: The build number (i.e. the third integer or PATCH) for this version.
+  VersionRevision:
+    description: The fourth integer component of the version.
+  MajorMinorVersion:
+    description: The "major.minor" portion of the version.
+  VersionMajor:
+    description: The first integer of the version.
+  VersionMinor:
+    description: The second integer of the version.
+  GitCommitId:
+    description: The full SHA1 hash of the HEAD commit.
+  GitCommitIdShort:
+    description: A truncated SHA1 hash of the HEAD commit (usually 10 characters)
+  GitCommitDate:
+    description: The date of the git commit at HEAD
+  VersionHeight:
+    description: The number of commits in the longest single path between the specified commit and the most distant ancestor (inclusive) that set the version to the value at HEAD.
+  VersionHeightOffset:
+    description: The offset to add to VersionHeight when calculating the BuildNumber or wherever else the VersionHeight is used.
+  Version:
+    description: The four integer version.
+  BuildMetadataFragment:
+    description: The +metadata portion of the version, if any.
+  NuGetPackageVersion:
+    description: The version to be used for NuGet packages.
+  ChocolateyPackageVersion:
+    description: The version to be used for Chocolatey packages.
+  NpmPackageVersion:
+    description: The version to be used for NPM packages.
+  SemVer1:
+    description: The SemVer 1.0 compliant version.
+  SemVer2:
+    description: The SemVer 2.0 compliant version.
+
 runs:
   using: node12
   main: dist/index.js

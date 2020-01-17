@@ -31,19 +31,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: nbgv -c -p src
+    - name: nbgv get-version -p src
       uses: ./
       with:
         path: src
-        allVars: false
+      id: nbgv
+    - name: Print step outputs
+      run: |
+        echo $VersionJson
+        echo 'SemVer2: ${{ steps.nbgv.outputs.SemVer2 }}'
+        echo 'CloudBuildNumber: ${{ steps.nbgv.outputs.CloudBuildNumber }}'
+        if [ -z "${{ steps.nbgv.outputs.CloudBuildNumber }}" ]; then exit 1; fi
+      env:
+        VersionJson: ${{ toJson(steps.nbgv.outputs) }}
+    - name: nbgv cloud -c -p src
+      uses: ./
+      with:
+        path: src
+        setCommonVars: true
     - name: Print env vars
-      run: gci env:NBGV_*,env:Git*
+      run: |
+        gci env:NBGV_*,env:Git*
+        if (-not $env:GitBuildVersion) { exit 1 }
       shell: pwsh
-    - name: nbgv -a -p src
+    - name: nbgv cloud -a -p src
       uses: ./
       with:
         path: src
-        commonVars: false
+        setAllVars: true
     - name: Print env vars
-      run: gci env:NBGV_*,env:Git*
+      run: |
+        gci env:NBGV_*,env:Git*
+        if (-not $env:NBGV_Version) { exit 1 }
       shell: pwsh

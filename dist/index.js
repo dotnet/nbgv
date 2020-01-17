@@ -977,9 +977,12 @@ const path = __importStar(__webpack_require__(622));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            const toolVersion = core.getInput('toolVersion');
+            const dir_path = core.getInput('path');
+            const setCommonVars = core.getInput('setCommonVars') === 'true';
+            const setAllVars = core.getInput('setAllVars') === 'true';
             // install nbgv
             let installArgs = ['tool', 'install', '-g', 'nbgv'];
-            const toolVersion = core.getInput('toolVersion');
             if (toolVersion) {
                 installArgs.push('--version', toolVersion);
             }
@@ -989,20 +992,34 @@ function run() {
             }
             // add .dotnet/tools to the path
             core.addPath(path.join(os.homedir(), '.dotnet', 'tools'));
-            // run nbgv
-            let jsonStr = '';
-            let args = ['cloud'];
-            const dir_path = core.getInput('path');
+            // Collect a JSON string of all the version properties.
+            let args = ['get-version', '-f', 'json'];
             if (dir_path) {
                 args.push('-p', dir_path);
             }
-            if (core.getInput('commonVars') === 'true') {
-                args.push('-c');
+            let versionJson = '';
+            yield exec.exec('nbgv', args, { listeners: { stdout: (data) => { versionJson += data.toString(); } } });
+            core.setOutput('versionJson', versionJson);
+            // Break up the JSON into individual outputs.
+            const versionProperties = JSON.parse(versionJson);
+            for (let name in versionProperties.CloudBuildAllVars) {
+                // Trim off the leading NBGV_
+                core.setOutput(name.substring(5), versionProperties.CloudBuildAllVars[name]);
             }
-            if (core.getInput('allVars') === 'true') {
-                args.push('-a');
+            // Set environment variables if desired.
+            if (setCommonVars || setAllVars) {
+                args = ['cloud'];
+                if (dir_path) {
+                    args.push('-p', dir_path);
+                }
+                if (setCommonVars) {
+                    args.push('-c');
+                }
+                if (setAllVars) {
+                    args.push('-a');
+                }
+                yield exec.exec('nbgv', args);
             }
-            yield exec.exec('nbgv', args);
         }
         catch (error) {
             core.setFailed(error.message);

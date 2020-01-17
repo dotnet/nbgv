@@ -5,9 +5,13 @@ import * as path from 'path'
 
 async function run() {
   try {
+    const toolVersion = core.getInput('toolVersion');
+    const dir_path = core.getInput('path');
+    const setCommonVars = core.getInput('setCommonVars') === 'true';
+    const setAllVars = core.getInput('setAllVars') === 'true';
+
     // install nbgv
     let installArgs = ['tool', 'install', '-g', 'nbgv'];
-    const toolVersion = core.getInput('toolVersion');
     if (toolVersion) {
       installArgs.push('--version', toolVersion);
     }
@@ -20,21 +24,37 @@ async function run() {
     // add .dotnet/tools to the path
     core.addPath(path.join(os.homedir(), '.dotnet', 'tools'));
 
-    // run nbgv
-    let jsonStr = '';
-    let args = ['cloud'];
-    const dir_path = core.getInput('path');
+    // Collect a JSON string of all the version properties.
+    let args = ['get-version', '-f', 'json'];
     if (dir_path) {
       args.push('-p', dir_path);
     }
-    if (core.getInput('commonVars') === 'true') {
-      args.push('-c');
-    }
-    if (core.getInput('allVars') === 'true') {
-      args.push('-a');
+    let versionJson = '';
+    await exec.exec('nbgv', args, { listeners: { stdout: (data: Buffer) => { versionJson += data.toString() } } });
+    core.setOutput('versionJson', versionJson);
+
+    // Break up the JSON into individual outputs.
+    const versionProperties = JSON.parse(versionJson);
+    for (let name in versionProperties.CloudBuildAllVars) {
+      // Trim off the leading NBGV_
+      core.setOutput(name.substring(5), versionProperties.CloudBuildAllVars[name]);
     }
 
-    await exec.exec('nbgv', args);
+    // Set environment variables if desired.
+    if (setCommonVars || setAllVars) {
+      args = ['cloud'];
+      if (dir_path) {
+        args.push('-p', dir_path);
+      }
+      if (setCommonVars) {
+        args.push('-c');
+      }
+      if (setAllVars) {
+        args.push('-a');
+      }
+
+      await exec.exec('nbgv', args);
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
