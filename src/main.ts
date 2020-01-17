@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import * as exec from '@actions/exec';
+import { exec } from '@actions/exec';
 import * as os from 'os'
 import * as path from 'path'
 
@@ -16,7 +16,7 @@ async function run() {
       installArgs.push('--version', toolVersion);
     }
 
-    let exitCode = await exec.exec('dotnet', installArgs, { ignoreReturnCode: true });
+    let exitCode = await exec('dotnet', installArgs, { ignoreReturnCode: true });
     if (exitCode > 1) {
       throw new Error("dotnet tool install failed.");
     }
@@ -30,7 +30,7 @@ async function run() {
       args.push('-p', dir_path);
     }
     let versionJson = '';
-    await exec.exec('nbgv', args, { listeners: { stdout: (data: Buffer) => { versionJson += data.toString() } } });
+    await exec('nbgv', args, { listeners: { stdout: (data: Buffer) => { versionJson += data.toString() } } });
     core.setOutput('versionJson', versionJson);
 
     // Break up the JSON into individual outputs.
@@ -53,7 +53,7 @@ async function run() {
         args.push('-a');
       }
 
-      await exec.exec('nbgv', args);
+      await exec('nbgv', args);
     }
   } catch (error) {
     core.setFailed(error.message);

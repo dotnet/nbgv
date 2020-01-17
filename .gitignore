@@ -2,3 +2,4 @@ node_modules/
 __tests__/runner/*
 nbgv.json
 lib/main.js
+*.tsbuildinfo
