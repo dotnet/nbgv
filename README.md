@@ -2,15 +2,10 @@
 
 [![GitHub Actions status](https://github.com/aarnott/nbgv/workflows/CI/PR/badge.svg)](https://github.com/AArnott/nbgv/actions)
 
-This action installs and runs the CLI for [Nerdbank.GitVersioning](https://github.com/AArnott/Nerdbank.GitVersioning).
-It does the equivalent of:
+This action installs the CLI for [Nerdbank.GitVersioning](https://github.com/AArnott/Nerdbank.GitVersioning)
+and exposes version data from it as action outputs.
 
-```bash
-dotnet tool install -g nbgv
-nbgv cloud --all-vars --common-vars
-```
-
-This sets many environment variables to the various forms of the version for your repo or project.
+It optionally also sets environment variables.
 
 ## Inputs
 
