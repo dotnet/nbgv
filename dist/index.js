@@ -965,15 +965,12 @@ const core = __importStar(__webpack_require__(470));
 const exec_1 = __webpack_require__(986);
 const os = __importStar(__webpack_require__(87));
 const path = __importStar(__webpack_require__(622));
+const settings_1 = __webpack_require__(648);
 async function run() {
     try {
-        const toolVersion = core.getInput('toolVersion');
-        const dir_path = core.getInput('path');
-        const setCommonVars = core.getInput('setCommonVars') === 'true';
-        const setAllVars = core.getInput('setAllVars') === 'true';
         let installArgs = ['tool', 'install', '-g', 'nbgv'];
-        if (toolVersion) {
-            installArgs.push('--version', toolVersion);
+        if (settings_1.Inputs.toolVersion) {
+            installArgs.push('--version', settings_1.Inputs.toolVersion);
         }
         let exitCode = await exec_1.exec('dotnet', installArgs, { ignoreReturnCode: true });
         if (exitCode > 1) {
@@ -981,8 +978,8 @@ async function run() {
         }
         core.addPath(path.join(os.homedir(), '.dotnet', 'tools'));
         let args = ['get-version', '-f', 'json'];
-        if (dir_path) {
-            args.push('-p', dir_path);
+        if (settings_1.Inputs.path) {
+            args.push('-p', settings_1.Inputs.path);
         }
         let versionJson = '';
         await exec_1.exec('nbgv', args, { listeners: { stdout: (data) => { versionJson += data.toString(); } } });
@@ -991,15 +988,15 @@ async function run() {
         for (let name in versionProperties.CloudBuildAllVars) {
             core.setOutput(name.substring(5), versionProperties.CloudBuildAllVars[name]);
         }
-        if (setCommonVars || setAllVars) {
+        if (settings_1.Inputs.setCommonVars || settings_1.Inputs.setAllVars) {
             args = ['cloud'];
-            if (dir_path) {
-                args.push('-p', dir_path);
+            if (settings_1.Inputs.path) {
+                args.push('-p', settings_1.Inputs.path);
             }
-            if (setCommonVars) {
+            if (settings_1.Inputs.setCommonVars) {
                 args.push('-c');
             }
-            if (setAllVars) {
+            if (settings_1.Inputs.setAllVars) {
                 args.push('-a');
             }
             await exec_1.exec('nbgv', args);
@@ -1307,6 +1304,41 @@ module.exports = require("events");
 /***/ (function(module) {
 
 module.exports = require("path");
+
+/***/ }),
+
+/***/ 648:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const core = __importStar(__webpack_require__(470));
+class Inputs {
+    static get path() {
+        const result = core.getInput('path');
+        return result === '' || result === null ? undefined : result;
+    }
+    static get setAllVars() {
+        return core.getInput('setAllVars') === 'true';
+    }
+    static get setCommonVars() {
+        return core.getInput('setCommonVars') === 'true';
+    }
+    static get toolVersion() {
+        const result = core.getInput('toolVersion');
+        return result === '' || result === null ? undefined : result;
+    }
+}
+exports.Inputs = Inputs;
+
 
 /***/ }),
 
