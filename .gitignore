@@ -1,5 +1,5 @@
 node_modules/
 __tests__/runner/*
 nbgv.json
-lib/main.js
+lib/*.js
 *.tsbuildinfo

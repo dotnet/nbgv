@@ -2,18 +2,14 @@ import * as core from '@actions/core';
 import { exec } from '@actions/exec';
 import * as os from 'os'
 import * as path from 'path'
+import { Inputs } from './settings';
 
 async function run() {
   try {
-    const toolVersion = core.getInput('toolVersion');
-    const dir_path = core.getInput('path');
-    const setCommonVars = core.getInput('setCommonVars') === 'true';
-    const setAllVars = core.getInput('setAllVars') === 'true';
-
     // install nbgv
     let installArgs = ['tool', 'install', '-g', 'nbgv'];
-    if (toolVersion) {
-      installArgs.push('--version', toolVersion);
+    if (Inputs.toolVersion) {
+      installArgs.push('--version', Inputs.toolVersion);
     }
 
     let exitCode = await exec('dotnet', installArgs, { ignoreReturnCode: true });
@@ -26,8 +22,8 @@ async function run() {
 
     // Collect a JSON string of all the version properties.
     let args = ['get-version', '-f', 'json'];
-    if (dir_path) {
-      args.push('-p', dir_path);
+    if (Inputs.path) {
+      args.push('-p', Inputs.path);
     }
     let versionJson = '';
     await exec('nbgv', args, { listeners: { stdout: (data: Buffer) => { versionJson += data.toString() } } });
@@ -41,15 +37,15 @@ async function run() {
     }
 
     // Set environment variables if desired.
-    if (setCommonVars || setAllVars) {
+    if (Inputs.setCommonVars || Inputs.setAllVars) {
       args = ['cloud'];
-      if (dir_path) {
-        args.push('-p', dir_path);
+      if (Inputs.path) {
+        args.push('-p', Inputs.path);
       }
-      if (setCommonVars) {
+      if (Inputs.setCommonVars) {
         args.push('-c');
       }
-      if (setAllVars) {
+      if (Inputs.setAllVars) {
         args.push('-a');
       }
 
