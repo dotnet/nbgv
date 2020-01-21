@@ -54,7 +54,7 @@ SemVer2|The SemVer 2.0 compliant version.
 ### Using step outputs
 
 ```yaml
-- uses: aarnott/nbgv@v0.3-beta
+- uses: aarnott/nbgv@v0.3
   id: nbgv
 - run: echo 'SemVer2: ${{ steps.nbgv.outputs.SemVer2 }}'
 ```
@@ -62,7 +62,7 @@ SemVer2|The SemVer 2.0 compliant version.
 ### Using environment variables
 
 ```yaml
-- uses: aarnott/nbgv@v0.3-beta
+- uses: aarnott/nbgv@v0.3
   with:
     setAllVars: true
 - run: echo "NBGV_SemVer2 $NBGV_SemVer2"
