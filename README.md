@@ -7,6 +7,8 @@ and exposes version data from it as action outputs.
 
 It optionally also sets environment variables.
 
+The action runs in about 13 seconds.
+
 ## Inputs
 
 All inputs are optional.
@@ -67,8 +69,6 @@ SemVer2|The SemVer 2.0 compliant version.
     setAllVars: true
 - run: echo "NBGV_SemVer2 $NBGV_SemVer2"
 ```
-
-The action runs in about 13 seconds.
 
 ## Checkout requirements
 
