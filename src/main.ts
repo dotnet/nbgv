@@ -55,7 +55,7 @@ async function run() {
     // Stamp the version on an existing file, if desired.
     if (Inputs.stamp) {
       if (path.basename(Inputs.stamp) === 'package.json') {
-        await exec('npm', ['version', versionProperties.NpmPackageVersion, '--git-tag-version=false', '--allow-same-version']);
+        await exec('npm', ['version', versionProperties.NpmPackageVersion, '--git-tag-version=false', '--allow-same-version'], { cwd: path.dirname(Inputs.stamp) });
       } else {
         throw new Error(`Unable to stamp unsupported file format: ${path.basename(Inputs.stamp)}`);
       }
