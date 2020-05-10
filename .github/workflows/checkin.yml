@@ -64,3 +64,10 @@ jobs:
         gci env:NBGV_*,env:Git*
         if (-not $env:NBGV_Version) { exit 1 }
       shell: pwsh
+    - name: nbgv (stamp)
+      uses: ./
+      with:
+        stamp: package.json
+    - name: print package.json version
+      run: npm ls nbgv-action ; exit 0
+      shell: bash --noprofile --norc {0}

@@ -18,6 +18,7 @@ All inputs are optional.
 `path`|Repo root|The path to the directory for which the version should be determined. This should be at or below the directory containing the version.json file.
 `setCommonVars`|false|Defines a few common version variables as environment variables, with a "Git" prefix (e.g. GitBuildVersion, GitBuildVersionSimple, GitAssemblyInformationalVersion). Adds the `--common-vars` switch to the `nbgv cloud` command.
 `setAllVars`|false|Defines ALL version variables as environment variables, with a "NBGV_" prefix. Adds the `--all-vars` switch to the `nbgv cloud` command.
+`stamp`||The path to a file whose version setting should be changed to match the computed version. Supported file types: `package.json`
 `toolVersion`|latest stable|The version of the nbgv dotnet CLI tool to install and use. If not specified, the default is the latest stable version.
 
 ## Outputs
@@ -56,7 +57,7 @@ SemVer2|The SemVer 2.0 compliant version.
 ### Using step outputs
 
 ```yaml
-- uses: aarnott/nbgv@v0.3
+- uses: aarnott/nbgv@master
   id: nbgv
 - run: echo 'SemVer2: ${{ steps.nbgv.outputs.SemVer2 }}'
 ```
@@ -64,10 +65,18 @@ SemVer2|The SemVer 2.0 compliant version.
 ### Using environment variables
 
 ```yaml
-- uses: aarnott/nbgv@v0.3
+- uses: aarnott/nbgv@master
   with:
     setAllVars: true
 - run: echo "NBGV_SemVer2 $NBGV_SemVer2"
+```
+
+### Stamp the version on a package.json file
+
+```yaml
+- uses: aarnott/nbgv@master
+  with:
+    stamp: package.json
 ```
 
 ## Checkout requirements

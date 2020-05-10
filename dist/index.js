@@ -1014,6 +1014,14 @@ async function run() {
             }
             await exec_1.exec('nbgv', args);
         }
+        if (settings_1.Inputs.stamp) {
+            if (path.basename(settings_1.Inputs.stamp) === 'package.json') {
+                await exec_1.exec('npm', ['version', versionProperties.NpmPackageVersion, '--git-tag-version=false', '--allow-same-version']);
+            }
+            else {
+                throw new Error(`Unable to stamp unsupported file format: ${path.basename(settings_1.Inputs.stamp)}`);
+            }
+        }
     }
     catch (error) {
         core.setFailed(error.message);
@@ -1390,6 +1398,10 @@ const core = __importStar(__webpack_require__(470));
 class Inputs {
     static get path() {
         const result = core.getInput('path');
+        return result === '' || result === null ? undefined : result;
+    }
+    static get stamp() {
+        const result = core.getInput('stamp');
         return result === '' || result === null ? undefined : result;
     }
     static get setAllVars() {
