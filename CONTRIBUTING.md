@@ -29,12 +29,8 @@ node lib/main.js
 
 ## To commit
 
-GitHub Actions require that we commit all production dependencies into git.
-The dev workflow above results in dev dependencies being restored as well,
-so clean up all node_modules and then install just the production ones.
+Always build with the command given above before finalizing a branch for a pull request.
+The `dist/index.js` file is under source control and is updated by running a build to apply
+all changes to code or dependencies.
 
-```bash
-git clean -fdx :/node_modules
-yarn --production
-git add :/node_modules
-```
+Any changes made but not applied to `dist/index.js` will result in the PR validation failing.
