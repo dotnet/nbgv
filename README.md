@@ -1,13 +1,14 @@
 # GitHub Action for Nerdbank.GitVersioning
 
-[![GitHub Actions status](https://github.com/aarnott/nbgv/workflows/CI/PR/badge.svg)](https://github.com/AArnott/nbgv/actions)
+[![GitHub Actions status](https://github.com/dotnet/nbgv/workflows/CI/PR/badge.svg)](https://github.com/dotnet/nbgv/actions)
 
 This action installs the CLI for [Nerdbank.GitVersioning](https://github.com/AArnott/Nerdbank.GitVersioning)
 and exposes version data from it as action outputs.
-
 It optionally also sets environment variables.
 
-The action runs in about 13 seconds.
+⌚ The action runs in about 13 seconds.
+
+This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
 
 ## Inputs
 
@@ -57,7 +58,7 @@ SemVer2|The SemVer 2.0 compliant version.
 ### Using step outputs
 
 ```yaml
-- uses: aarnott/nbgv@master
+- uses: dotnet/nbgv@master
   id: nbgv
 - run: echo 'SemVer2: ${{ steps.nbgv.outputs.SemVer2 }}'
 ```
@@ -65,7 +66,7 @@ SemVer2|The SemVer 2.0 compliant version.
 ### Using environment variables
 
 ```yaml
-- uses: aarnott/nbgv@master
+- uses: dotnet/nbgv@master
   with:
     setAllVars: true
 - run: echo "NBGV_SemVer2 $NBGV_SemVer2"
@@ -74,7 +75,7 @@ SemVer2|The SemVer 2.0 compliant version.
 ### Stamp the version on a package.json file
 
 ```yaml
-- uses: aarnott/nbgv@master
+- uses: dotnet/nbgv@master
   with:
     stamp: package.json
 ```
@@ -90,3 +91,11 @@ But if you're using `actions/checkout@v2` you'll need to specify deep clone:
   with:
     fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
 ```
+
+## Contribution guidelines
+
+Prerequisites and build instructions are found in our
+[contributing guidelines](CONTRIBUTING.md).
+
+This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.
+For more information see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
