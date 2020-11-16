@@ -17,6 +17,9 @@ inputs:
     description: Defines a few common version variables as environment variables, with a "Git" prefix (e.g. GitBuildVersion, GitBuildVersionSimple, GitAssemblyInformationalVersion).
     required: false
     default: false
+  stamp:
+    description: "The path to a file whose version setting should be changed to match the computed version. Supported file types: `package.json`."
+    required: false
   toolVersion:
     description: The version of the nbgv dotnet CLI tool to install and use. If not specified, the default is the latest stable version.
     required: false
