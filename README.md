@@ -55,6 +55,10 @@ SemVer2|The SemVer 2.0 compliant version.
 
 ## Example usage
 
+In each example below, replace the `master` branch reference in `@master` with the latest versioned branch available at the time you consume it.
+This will help your consumption be stable even as we (may) make breaking changes.
+You can always unlock new features in the Action by bumping the `v0.x` to v0.x+1 later.
+
 ### Using step outputs
 
 ```yaml
