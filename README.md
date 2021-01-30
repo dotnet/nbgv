@@ -64,7 +64,7 @@ You can always unlock new features in the Action by bumping the `v0.x` to v0.x+1
 ```yaml
 - uses: dotnet/nbgv@master
   id: nbgv
-- run: echo 'SemVer2: ${{ steps.nbgv.outputs.SemVer2 }}'
+- run: echo 'SemVer2=${{ steps.nbgv.outputs.SemVer2 }}'
 ```
 
 ### Using environment variables
