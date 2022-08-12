@@ -23,6 +23,9 @@ inputs:
   toolVersion:
     description: The version of the nbgv dotnet CLI tool to install and use. If not specified, the default is the latest stable version.
     required: false
+  toolFeed:
+    description: An additional feed to search for the nbgv dotnet CLI tool. Default feeds may include https://api.nuget.org/v3/index.json or whatever is specified in a nuget.config file at the root of your repo.
+    required: false
 outputs:
   CloudBuildNumber:
     description: The cloud build number

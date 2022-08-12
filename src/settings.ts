@@ -23,4 +23,9 @@ export class Inputs {
         const result = core.getInput('toolVersion');
         return result === '' || result === null ? undefined : result;
     }
+
+    static get toolFeed(): string | undefined {
+        const result = core.getInput('toolFeed');
+        return result === '' || result === null ? undefined : result;
+    }
 }

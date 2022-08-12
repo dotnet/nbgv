@@ -12,6 +12,10 @@ async function run() {
       installArgs.push('--version', Inputs.toolVersion);
     }
 
+    if (Inputs.toolFeed) {
+      installArgs.push('--add-source', Inputs.toolFeed);
+    }
+
     let exitCode = await exec('dotnet', installArgs, { ignoreReturnCode: true });
     if (exitCode > 1) {
       throw new Error("dotnet tool install failed.");

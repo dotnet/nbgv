@@ -21,6 +21,7 @@ All inputs are optional.
 `setAllVars`|false|Defines ALL version variables as environment variables, with a "NBGV_" prefix. Adds the `--all-vars` switch to the `nbgv cloud` command.
 `stamp`||The path to a file whose version setting should be changed to match the computed version. Supported file types: `package.json`
 `toolVersion`|latest stable|The version of the nbgv dotnet CLI tool to install and use. If not specified, the default is the latest stable version.
+`toolFeed`|nuget.config content|An additional feed to search for the nbgv dotnet CLI tool. Default feeds may include https://api.nuget.org/v3/index.json or whatever is specified in a nuget.config file at the root of your repo.
 
 ## Outputs
 
