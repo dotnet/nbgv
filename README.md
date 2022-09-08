@@ -55,14 +55,14 @@ SemVer2|The SemVer 2.0 compliant version.
 
 ## Example usage
 
-In each example below, replace the `master` branch reference in `@master` with the latest versioned branch available at the time you consume it.
+In each example below, replace the `main` branch reference in `@main` with the latest versioned branch available at the time you consume it.
 This will help your consumption be stable even as we (may) make breaking changes.
 You can always unlock new features in the Action by bumping the `v0.x` to v0.x+1 later.
 
 ### Using step outputs
 
 ```yaml
-- uses: dotnet/nbgv@master
+- uses: dotnet/nbgv@main
   id: nbgv
 - run: echo 'SemVer2=${{ steps.nbgv.outputs.SemVer2 }}'
 ```
@@ -70,7 +70,7 @@ You can always unlock new features in the Action by bumping the `v0.x` to v0.x+1
 ### Using environment variables
 
 ```yaml
-- uses: dotnet/nbgv@master
+- uses: dotnet/nbgv@main
   with:
     setAllVars: true
 - run: echo "NBGV_SemVer2 $NBGV_SemVer2"
@@ -79,7 +79,7 @@ You can always unlock new features in the Action by bumping the `v0.x` to v0.x+1
 ### Stamp the version on a package.json file
 
 ```yaml
-- uses: dotnet/nbgv@master
+- uses: dotnet/nbgv@main
   with:
     stamp: package.json
 ```
