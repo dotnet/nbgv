@@ -1606,6 +1606,7 @@ async function run() {
     try {
         let installArgs = ['tool', 'install', '-g', 'nbgv'];
         if (settings_1.Inputs.toolVersion) {
+            installArgs[1] = 'update';
             installArgs.push('--version', settings_1.Inputs.toolVersion);
         }
         if (settings_1.Inputs.toolFeed) {
