@@ -6,7 +6,7 @@ This action installs the CLI for [Nerdbank.GitVersioning](https://github.com/AAr
 and exposes version data from it as action outputs.
 It optionally also sets environment variables.
 
-⌚ The action runs in about 13 seconds.
+⌚ The action runs in about 5 seconds.
 
 This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
 
