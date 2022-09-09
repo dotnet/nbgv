@@ -9,7 +9,12 @@ async function run() {
     // install nbgv
     let installArgs = ['tool', 'install', '-g', 'nbgv'];
     if (Inputs.toolVersion) {
+      installArgs[1] = 'update'; // using 'update' will either install, or will change the version to what we want.
       installArgs.push('--version', Inputs.toolVersion);
+    }
+
+    if (Inputs.toolFeed) {
+      installArgs.push('--add-source', Inputs.toolFeed);
     }
 
     let exitCode = await exec('dotnet', installArgs, { ignoreReturnCode: true });

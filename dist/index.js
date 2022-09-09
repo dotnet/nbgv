@@ -1606,7 +1606,11 @@ async function run() {
     try {
         let installArgs = ['tool', 'install', '-g', 'nbgv'];
         if (settings_1.Inputs.toolVersion) {
+            installArgs[1] = 'update';
             installArgs.push('--version', settings_1.Inputs.toolVersion);
+        }
+        if (settings_1.Inputs.toolFeed) {
+            installArgs.push('--add-source', settings_1.Inputs.toolFeed);
         }
         let exitCode = await exec_1.exec('dotnet', installArgs, { ignoreReturnCode: true });
         if (exitCode > 1) {
@@ -2589,6 +2593,10 @@ class Inputs {
     }
     static get toolVersion() {
         const result = core.getInput('toolVersion');
+        return result === '' || result === null ? undefined : result;
+    }
+    static get toolFeed() {
+        const result = core.getInput('toolFeed');
         return result === '' || result === null ? undefined : result;
     }
 }
