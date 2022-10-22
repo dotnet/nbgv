@@ -65,7 +65,7 @@ async function run() {
         throw new Error(`Unable to stamp unsupported file format: ${path.basename(Inputs.stamp)}`);
       }
     }
-  } catch (error) {
+  } catch (error: any) {
     core.setFailed(error.message);
   }
 }
