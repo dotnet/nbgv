@@ -41,10 +41,10 @@
   dependencies:
     tunnel "^0.0.6"
 
-"@actions/io@^1.0.1", "@actions/io@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@actions/io/-/io-1.0.2.tgz#2f614b6e69ce14d191180451eb38e6576a6e6b27"
-  integrity sha512-J8KuFqVPr3p6U8W93DOXlXW6zFvrQAJANdS+vw0YhusLIq+bszW8zmK2Fh1C2kDPX8FMvwIl1OUcFgvJoXLbAg==
+"@actions/io@^1.0.1", "@actions/io@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@actions/io/-/io-1.1.2.tgz#766ac09674a289ce0f1550ffe0a6eac9261a8ea9"
+  integrity sha512-d+RwPlMp+2qmBfeLYPLXuSRykDIFEwdTA0MMxzS9kh4kvP1ftrc/9fzy6pX6qAjthdXruHQ6/6kjT/DNo5ALuw==
 
 "@actions/tool-cache@^1.6.1":
   version "1.6.1"
