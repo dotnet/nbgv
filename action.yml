@@ -81,5 +81,5 @@ outputs:
     description: The SemVer 2.0 compliant version.
 
 runs:
-  using: 'node20'
+  using: node20
   main: dist/index.js
