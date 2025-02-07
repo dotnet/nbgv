@@ -5,7 +5,7 @@
   "description": "GitHub Action for Nerdbank.GitVersioning",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc && ncc build lib/main.js",
+    "build": "yarn tsc && yarn ncc build lib/main.js",
     "test": "jest"
   },
   "repository": {
