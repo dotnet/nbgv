@@ -17,7 +17,7 @@ yarn run build
 To run the action:
 
 ```bash
-node lib/main.js
+node dist/index.js
 ```
 
 ## To commit
