@@ -11,9 +11,6 @@
       "yarn",
       "yarn run build"
     ],
-    "fileFilters": [
-      "dist/index.js"
-    ],
     "executionMode": "branch"
   }
 }
