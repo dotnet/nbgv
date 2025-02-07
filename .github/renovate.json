@@ -5,6 +5,7 @@
   ],
   "postUpgradeTasks": {
     "commands": [
+      "yarn",
       "yarn run build"
     ],
     "fileFilters": [
