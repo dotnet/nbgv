@@ -3,9 +3,6 @@
   "extends": [
     "config:recommended"
   ],
-  "baseBranches": [
-    "renovate/reconfigure"
-  ],
   "postUpgradeTasks": {
     "commands": [
       "yarn",

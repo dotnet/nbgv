@@ -1,4 +1,6 @@
 module.exports = {
   allowedCommands: [".*"],
-  repositories: ["dotnet/nbgv"],
+  repositories: [
+    { repository: "dotnet/nbgv", baseBranches: ["renovate/reconfigure"] },
+  ],
 };
