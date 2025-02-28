@@ -1,13 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
+  "lockFileMaintenance": { "enabled": true },
   "skipInstalls": false,
   "postUpgradeTasks": {
-    "commands": [
-      "yarn run build"
-    ],
+    "commands": ["yarn run build"],
     "executionMode": "branch"
   }
 }
