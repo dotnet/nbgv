@@ -1,15 +1,19 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "lockFileMaintenance": {
     "enabled": true,
     "recreateWhen": "always",
-    "rebaseStalePrs": true,
+    "rebaseWhen": "behind-base-branch",
     "branchTopic": "lock-file-maintenance",
     "commitMessageAction": "Lock file maintenance",
     "commitMessageTopic": null,
     "commitMessageExtra": null,
-    "schedule": ["on friday"],
+    "schedule": [
+      "on friday"
+    ],
     "groupName": null,
     "prBodyDefinitions": {
       "Change": "All locks refreshed"
@@ -17,7 +21,9 @@
   },
   "skipInstalls": false,
   "postUpgradeTasks": {
-    "commands": ["yarn run build"],
+    "commands": [
+      "yarn run build"
+    ],
     "executionMode": "branch"
   }
 }
