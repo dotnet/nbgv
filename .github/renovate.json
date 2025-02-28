@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended"
   ],
+  "skipInstalls": false,
   "postUpgradeTasks": {
     "commands": [
       "yarn",
