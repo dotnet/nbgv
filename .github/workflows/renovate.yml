@@ -1,0 +1,19 @@
+name: Self-Hosted Renovate
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: Renovate Bot GitHub Action
+        uses: renovatebot/github-action@v41.0.12
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          configurationFile: .github/renovate-config.js
+        env:
+          LOG_LEVEL: DEBUG

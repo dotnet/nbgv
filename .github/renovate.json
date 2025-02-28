@@ -3,12 +3,10 @@
   "extends": [
     "config:recommended"
   ],
+  "skipInstalls": false,
   "postUpgradeTasks": {
     "commands": [
       "yarn run build"
-    ],
-    "fileFilters": [
-      "dist/index.js"
     ],
     "executionMode": "branch"
   }
