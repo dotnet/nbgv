@@ -53,7 +53,7 @@ async function run() {
         if (settings_1.Inputs.toolFeed) {
             baseArgs.push("--add-source", settings_1.Inputs.toolFeed);
         }
-        baseArgs.push("--");
+        baseArgs.push("-y", "--");
         let args = ['get-version', '-f', 'json'];
         if (settings_1.Inputs.path) {
             args.push('-p', settings_1.Inputs.path);

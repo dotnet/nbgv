@@ -9,7 +9,7 @@ async function run() {
     const baseArgs: string[] = ["tool", "exec", "nbgv"];
     if (Inputs.toolVersion) { baseArgs.push("--version", Inputs.toolVersion); }
     if (Inputs.toolFeed) { baseArgs.push("--add-source", Inputs.toolFeed); }
-    baseArgs.push("--");
+    baseArgs.push("-y", "--");
 
     // Collect a JSON string of all the version properties.
     let args = ['get-version', '-f', 'json'];
