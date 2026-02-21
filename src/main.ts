@@ -31,7 +31,7 @@ async function run() {
       args.push('-p', Inputs.path);
     }
     let versionJson = '';
-    await exec('nbgv', args, { listeners: { stdout: (data: Buffer) => { versionJson += data.toString() } } });
+    await exec('dotnet', ['nbgv', ...args], { listeners: { stdout: (data: Buffer) => { versionJson += data.toString() } } });
     core.setOutput('versionJson', versionJson);
 
     // Break up the JSON into individual outputs.
@@ -54,7 +54,7 @@ async function run() {
         args.push('-a');
       }
 
-      await exec('nbgv', args);
+      await exec('dotnet', ['nbgv', ...args]);
     }
 
     // Stamp the version on an existing file, if desired.

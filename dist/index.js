@@ -65,7 +65,7 @@ async function run() {
             args.push('-p', settings_1.Inputs.path);
         }
         let versionJson = '';
-        await (0, exec_1.exec)('nbgv', args, { listeners: { stdout: (data) => { versionJson += data.toString(); } } });
+        await (0, exec_1.exec)('dotnet', ['nbgv', ...args], { listeners: { stdout: (data) => { versionJson += data.toString(); } } });
         core.setOutput('versionJson', versionJson);
         const versionProperties = JSON.parse(versionJson);
         for (let name in versionProperties.CloudBuildAllVars) {
@@ -82,7 +82,7 @@ async function run() {
             if (settings_1.Inputs.setAllVars) {
                 args.push('-a');
             }
-            await (0, exec_1.exec)('nbgv', args);
+            await (0, exec_1.exec)('dotnet', ['nbgv', ...args]);
         }
         if (settings_1.Inputs.stamp) {
             if (path.basename(settings_1.Inputs.stamp) === 'package.json') {

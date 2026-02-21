@@ -33,7 +33,11 @@ jobs:
             && git diff --cached \
             && exit 1)
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, macos-26]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
       with:
