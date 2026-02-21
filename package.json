@@ -5,7 +5,7 @@
   "description": "GitHub Action for Nerdbank.GitVersioning",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc && ncc build lib/main.js",
+    "build": "tsc --noEmit && esbuild src/main.ts --bundle --platform=node --outfile=dist/index.js",
     "test": "jest"
   },
   "repository": {
@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.10.1",
-    "@actions/exec": "^1.1.1",
+    "@actions/exec": "^3.0.0",
     "@actions/github": "^9.0.0",
     "@actions/io": "^3.0.0",
     "@actions/tool-cache": "^2.0.1",
@@ -34,7 +34,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^20.11.6",
     "@types/semver": "^7.5.8",
-    "@vercel/ncc": "^0.38.1",
+    "esbuild": "^0.27.3",
     "jest": "^30.0.0",
     "jest-circus": "^30.0.0",
     "ts-jest": "^29.1.4",
