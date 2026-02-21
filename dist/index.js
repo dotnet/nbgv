@@ -42,30 +42,24 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(7484));
 const exec_1 = __nccwpck_require__(5236);
-const os = __importStar(__nccwpck_require__(857));
 const path = __importStar(__nccwpck_require__(6928));
 const settings_1 = __nccwpck_require__(2971);
 async function run() {
     try {
-        let installArgs = ['tool', 'install', '-g', 'nbgv'];
+        const baseArgs = ["tool", "exec", "nbgv"];
         if (settings_1.Inputs.toolVersion) {
-            installArgs[1] = 'update';
-            installArgs.push('--version', settings_1.Inputs.toolVersion);
+            baseArgs.push("--version", settings_1.Inputs.toolVersion);
         }
         if (settings_1.Inputs.toolFeed) {
-            installArgs.push('--add-source', settings_1.Inputs.toolFeed);
+            baseArgs.push("--add-source", settings_1.Inputs.toolFeed);
         }
-        let exitCode = await (0, exec_1.exec)('dotnet', installArgs, { ignoreReturnCode: true });
-        if (exitCode > 1) {
-            throw new Error("dotnet tool install failed.");
-        }
-        core.addPath(path.join(os.homedir(), '.dotnet', 'tools'));
+        baseArgs.push("--");
         let args = ['get-version', '-f', 'json'];
         if (settings_1.Inputs.path) {
             args.push('-p', settings_1.Inputs.path);
         }
         let versionJson = '';
-        await (0, exec_1.exec)('dotnet', ['nbgv', ...args], { listeners: { stdout: (data) => { versionJson += data.toString(); } } });
+        await (0, exec_1.exec)('dotnet', [...baseArgs, ...args], { listeners: { stdout: (data) => { versionJson += data.toString(); } } });
         core.setOutput('versionJson', versionJson);
         const versionProperties = JSON.parse(versionJson);
         for (let name in versionProperties.CloudBuildAllVars) {
@@ -82,7 +76,7 @@ async function run() {
             if (settings_1.Inputs.setAllVars) {
                 args.push('-a');
             }
-            await (0, exec_1.exec)('dotnet', ['nbgv', ...args]);
+            await (0, exec_1.exec)('dotnet', [...baseArgs, ...args]);
         }
         if (settings_1.Inputs.stamp) {
             if (path.basename(settings_1.Inputs.stamp) === 'package.json') {
