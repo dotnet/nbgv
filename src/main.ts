@@ -1,29 +1,15 @@
 import * as core from '@actions/core';
 import { exec } from '@actions/exec';
-import * as os from 'os'
 import * as path from 'path'
 import { Inputs } from './settings';
 
 async function run() {
   try {
-    // install nbgv
-    let installArgs = ['tool', 'install', '-g', 'nbgv'];
-    if (Inputs.toolVersion) {
-      installArgs[1] = 'update'; // using 'update' will either install, or will change the version to what we want.
-      installArgs.push('--version', Inputs.toolVersion);
-    }
-
-    if (Inputs.toolFeed) {
-      installArgs.push('--add-source', Inputs.toolFeed);
-    }
-
-    let exitCode = await exec('dotnet', installArgs, { ignoreReturnCode: true });
-    if (exitCode > 1) {
-      throw new Error("dotnet tool install failed.");
-    }
-
-    // add .dotnet/tools to the path
-    core.addPath(path.join(os.homedir(), '.dotnet', 'tools'));
+    // Use dotnet tool exec so dotnet locates the runtime itself (avoids PATH/DOTNET_ROOT issues).
+    const baseArgs: string[] = ["tool", "exec", "nbgv"];
+    if (Inputs.toolVersion) { baseArgs.push("--version", Inputs.toolVersion); }
+    if (Inputs.toolFeed) { baseArgs.push("--add-source", Inputs.toolFeed); }
+    baseArgs.push("-y", "--verbosity", "quiet", "--");
 
     // Collect a JSON string of all the version properties.
     let args = ['get-version', '-f', 'json'];
@@ -31,7 +17,7 @@ async function run() {
       args.push('-p', Inputs.path);
     }
     let versionJson = '';
-    await exec('nbgv', args, { listeners: { stdout: (data: Buffer) => { versionJson += data.toString() } } });
+    await exec('dotnet', [...baseArgs, ...args], { listeners: { stdout: (data: Buffer) => { versionJson += data.toString() } } });
     core.setOutput('versionJson', versionJson);
 
     // Break up the JSON into individual outputs.
@@ -54,7 +40,7 @@ async function run() {
         args.push('-a');
       }
 
-      await exec('nbgv', args);
+      await exec('dotnet', [...baseArgs, ...args]);
     }
 
     // Stamp the version on an existing file, if desired.
