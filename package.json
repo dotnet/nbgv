@@ -26,7 +26,7 @@
     "@actions/exec": "^3.0.0",
     "@actions/github": "^9.0.0",
     "@actions/io": "^3.0.0",
-    "@actions/tool-cache": "^2.0.1",
+    "@actions/tool-cache": "^4.0.0",
     "os": "^0.1.2",
     "semver": "^7.6.2"
   },
