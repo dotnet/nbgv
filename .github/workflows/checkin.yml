@@ -35,7 +35,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, macos-26]
+        os: [ubuntu-latest, ubuntu-22.04, windows-latest, windows-2022, macos-latest, macos-14, macos-26]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -53,6 +53,7 @@ jobs:
         echo 'SemVer2: ${{ steps.nbgv.outputs.SemVer2 }}'
         echo 'CloudBuildNumber: ${{ steps.nbgv.outputs.CloudBuildNumber }}'
         if [ -z "${{ steps.nbgv.outputs.CloudBuildNumber }}" ]; then exit 1; fi
+      shell: bash
       env:
         VersionJson: ${{ toJson(steps.nbgv.outputs) }}
     - name: nbgv cloud -c -p src
