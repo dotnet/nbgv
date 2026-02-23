@@ -84,3 +84,41 @@ jobs:
       run: npm ls nbgv-action ; exit 0
       working-directory: tests
       shell: bash --noprofile --norc {0}
+
+  test-dotnet8:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.x
+    - name: Pin SDK to .NET 8
+      run: |
+        echo '{ "sdk": { "version": "8.0.100", "rollForward": "minor" } }' > global.json
+        dotnet --version
+    - name: nbgv get-version -p src
+      uses: ./
+      with:
+        path: src
+      id: nbgv
+    - name: Print step outputs
+      run: |
+        echo $VersionJson
+        echo 'SemVer2: ${{ steps.nbgv.outputs.SemVer2 }}'
+        echo 'CloudBuildNumber: ${{ steps.nbgv.outputs.CloudBuildNumber }}'
+        if [ -z "${{ steps.nbgv.outputs.CloudBuildNumber }}" ]; then exit 1; fi
+      shell: bash
+      env:
+        VersionJson: ${{ toJson(steps.nbgv.outputs) }}
+    - name: nbgv cloud -a -p src
+      uses: ./
+      with:
+        path: src
+        setAllVars: true
+    - name: Print env vars
+      run: |
+        gci env:NBGV_*,env:Git*
+        if (-not $env:NBGV_Version) { exit 1 }
+      shell: pwsh
