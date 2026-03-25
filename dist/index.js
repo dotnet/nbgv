@@ -21719,8 +21719,8 @@ function error(message, properties = {}) {
 }
 
 // src/main.ts
-var os6 = __toESM(require("os"));
-var path5 = __toESM(require("path"));
+var os6 = __toESM(require("node:os"));
+var path5 = __toESM(require("node:path"));
 var semver = __toESM(require_semver2());
 
 // src/settings.ts
