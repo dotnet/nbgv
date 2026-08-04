@@ -2,16 +2,16 @@
 
 ## Basic dev workflow
 
-This repo uses `yarn` to restore packages.
+This repo uses `pnpm` to restore packages.
 
 ```bash
-yarn
+pnpm install
 ```
 
 To build the action:
 
 ```bash
-yarn run build
+pnpm run build
 ```
 
 To run the action:
