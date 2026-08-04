@@ -3,4 +3,3 @@ __tests__/runner/*
 nbgv.json
 *.tsbuildinfo
 *.log
-.yarn/

@@ -22,7 +22,7 @@
   "skipInstalls": false,
   "postUpgradeTasks": {
     "commands": [
-      "yarn run build"
+      "pnpm run build"
     ],
     "executionMode": "branch"
   }

@@ -7,15 +7,15 @@ This is a **GitHub Action** (TypeScript) that installs the [Nerdbank.GitVersioni
 ## Build & Test
 
 ```bash
-yarn                # Install dependencies (uses Yarn 4 — see .yarnrc.yml)
-yarn run build      # Type-check with tsc, then bundle with esbuild → dist/index.js
-yarn test           # Run Jest tests
-yarn test -- -t "test name"  # Run a single test by name
+pnpm install        # Install dependencies
+pnpm run build      # Type-check with tsc, then bundle with esbuild → dist/index.js
+pnpm test           # Run Jest tests
+pnpm test -- -t "test name"  # Run a single test by name
 ```
 
 ## Key Conventions
 
-- **`dist/index.js` is committed to source control.** Every PR must include a freshly built `dist/index.js`. The CI `check_diff` job verifies this — if you change source or dependencies, run `yarn run build` and commit the result.
+- **`dist/index.js` is committed to source control.** Every PR must include a freshly built `dist/index.js`. The CI `check_diff` job verifies this — if you change source or dependencies, run `pnpm run build` and commit the result.
 - **Build = type-check + bundle.** `tsc --noEmit` checks types only; `esbuild` produces the single-file bundle at `dist/index.js`. There is no separate compile step that emits JS to an `outDir`.
 - **Strict TypeScript** is enabled (`strict`, `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns`). Test files (`**/*.test.ts`) are excluded from compilation.
 

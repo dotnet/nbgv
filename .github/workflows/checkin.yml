@@ -20,18 +20,18 @@ jobs:
     - name: Enable Corepack
       run: corepack enable
 
-    - name: yarn
-      run: yarn
+    - name: pnpm install
+      run: pnpm install --frozen-lockfile
 
-    - name: yarn run build
-      run: yarn run build
+    - name: pnpm run build
+      run: pnpm run build
 
     - name: check for uncommitted changes
       # Ensure no changes.
       run: |
         git add -u . # compare after applying git EOL normalization
         git diff --cached --exit-code --stat \
-        || (echo "##[error] found changed files after build. please 'yarn run build'" \
+        || (echo "##[error] found changed files after build. please 'pnpm run build'" \
                  "and check in all changes" \
             && git diff --cached \
             && exit 1)
