@@ -38,7 +38,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-22.04, windows-latest, windows-2022, macos-latest, macos-14, macos-26]
+        os: [ubuntu-latest, ubuntu-22.04, windows-latest, windows-2022, macos-latest, macos-26]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
